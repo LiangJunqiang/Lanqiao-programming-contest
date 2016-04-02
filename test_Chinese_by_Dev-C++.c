@@ -2,6 +2,6 @@
 int main()
 {
 	printf("Hello, let's guess it will can't be opened, or success?\n");
-	printf("´ó¼ÒºÃ£¬ÈÃÎÒÃÇ²Â²âËü»áÎŞ·¨´ò¿ª£¬»ò³É¹¦£¿");
+	printf("å¤§å®¶å¥½ï¼Œè®©æˆ‘ä»¬çŒœæµ‹å®ƒä¼šæ— æ³•æ‰“å¼€ï¼Œæˆ–æˆåŠŸï¼Ÿ");
 	return 0;
 }
