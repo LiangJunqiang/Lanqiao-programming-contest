@@ -63,8 +63,8 @@ void get_nextval(strings *strs, best *zc, int nextval[])
 	int i = zc->start;
 	int j = i - 1;
 	int end = zc->start + zc->len - 1;
-	nextval[1] = 0;
-	while(i < end){
+	nextval[zc->start] = zc->start - 1;
+	while(i <= end){
 		if(j == zc->start - 1 || strs->str[i] == strs->str[j]){
 			++i;
 			++j;
