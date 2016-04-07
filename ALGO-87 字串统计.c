@@ -19,8 +19,8 @@ void init(strings *strs, int l, best *bestzc)
 	bestzc->start = bestzc->len = 0;
 	strs->maxcount = strs->maxlen = 1;
 	strs->len = strlen(strs->str);
-	for(i = 0; i < l; i++)
-		for(j = l - 1; j < l; j++)
+	for(i = 0; i < MAXLEN; i++)
+		for(j = 0; j < MAXLEN; j++)
 			strs->message[i][j] = 1;
 	best_count = 0;
 }
@@ -35,7 +35,7 @@ void count_KMP(strings *strs, best *zc, int next[], best *bestzc)
 			++j;
 			if(j > j_end){
 				strs->message[zc->start][zc->len - 1]++;
-				strs->message[i - zc->len + 1][zc->len - 1] = 0;
+				strs->message[i - zc->len][zc->len - 1] = 0;
 				j = next[j];
 				if(strs->message[zc->start][zc->len - 1] > strs->maxcount){
 					strs->maxcount = strs->message[zc->start][zc->len - 1];
@@ -83,7 +83,7 @@ int main()
 	best bestzc;
 	best zc;
 	scanf("%d", &l);
-	fflush(stdin);
+	getchar();
 	gets(strs.str);
 	init(&strs, l, &bestzc);
 	//统计不同字符串出现的次数，记录在该字符串首次出现的strs.message[zc.start][zc.len - 1]里 
@@ -91,7 +91,7 @@ int main()
 	for(zc.start = 0; zc.start < strs.len; zc.start++)
 		for(zc.len = l; zc.len <= strs.len - zc.start + 1; zc.len++)
 		{	
-			if(strs.message[zc.start][strs.len - 1] != 0){
+			if(strs.message[zc.start][strs.len - 1] == 1){
 				get_nextval(&strs, &zc, next);
 				count_KMP(&strs, &zc, next, &bestzc);
 			}
