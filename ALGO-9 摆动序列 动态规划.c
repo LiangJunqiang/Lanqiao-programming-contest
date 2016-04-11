@@ -2,13 +2,53 @@
 #include <memory.h>
 #define MAX 21
 char mark[MAX];
+int count = 0;
+int k;
+void fillNum(int num[], int n)
+{
+	int i, j, cased = 0;
+	while(num[n] <= k){
+		memset(mark, 0, sizeof(mark));
+		for(i = 1; i < n; i++)
+			mark[num[i]] = 1;
+		if(num[n - 1] > num[n - 2]){
+			if(cased == 0){
+				j = 1;
+				cased = 1;
+			}
+			for(; j < num[n - 2] && mark[j] == 1; j++)
+				;
+			if(j >= num[n - 2]){	//相应范围已经没有可用的数 
+				count++;
+				return;
+			}else{
+				num[n] = j;			//找到最小的一个可用的数
+				fillNum(num, n + 1);
+			}
+		}
+		else{
+			if(cased == 0){
+				j = num[i - 2] + 1;
+				cased = 1;
+			}
+			for(; j <= k && mark[j] == 1; j++)
+				;
+			if(j > k){		//相应范围已经没有可用的数 
+				count++;				
+				return;
+			}else{
+				num[n] = j;	//找到最小的一个可用的数 
+				fillNum(num, n + 1);
+			}
+		}
+		j++;
+	}
+}
 int main()
 {
-	int k;
 	int num[MAX];
-	int i, j, m, n, l;
-	long count = 0;
 	scanf("%d", &k);
+	memset(num, 0, sizeof(num));
 	for(num[1] = 1; num[1] <= k; num[1]++)
 	{
 		num[2] = 0;
@@ -17,39 +57,8 @@ int main()
 			for(num[2]++; num[2] <= k && num[2] == num[1]; num[2]++)
 				;
 			if(num[2] > k)
-				break;
-			for(i = 3; i <= k; i++)
-			{
-				memset(mark, 0, sizeof(mark));
-				for(l = 1; l < i; l++)
-					mark[num[l]] = 1;
-				if(num[i - 1] > num[i - 2]){
-					for(j = 1; j < num[i - 2] && mark[j] == 1; j++)
-						;
-					if(j >= num[i - 2]){	//相应范围已经没有可用的数 
-						count++;
-						for(n = 1; n < i; n++)
-							printf("%d ", num[n]);
-						putchar('\n');
-						break;
-					}else{
-						num[i] = j;			//找到最小的一个可用的数 
-					}
-				}
-				else{
-					for(j = num[i - 2] + 1; j <= k && mark[j] == 1; j++)
-						;
-					if(j > k){		//相应范围已经没有可用的数 
-						count++;
-						for(n = 1; n < i; n++)
-							printf("%d ", num[n]);
-						putchar('\n');
-						break;
-					}else{
-						num[i] = j;	//找到最小的一个可用的数 
-					}
-				}
-			}
+				break;	
+			fillNum(num, 3);
 		}
 	}
 	printf("%d\n", count);
