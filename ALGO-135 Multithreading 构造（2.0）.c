@@ -115,23 +115,6 @@ int main()
 						y[0] = y[min] + 1;
 //						*/
 				}
-				//可能还有残留 n_sum - W - k 
-				for(l = i; k < n_sum - W && l < n[0]; l++)
-				{
-					if(l != min){
-						while(k < n_sum - W && n[l] > 0)
-						{
-							printf("%d %d ", l, l);
-							n[l]--;
-							k++;
-							w_ed++;
-//							/*
-							y[l] = y[0];
-							y[0] = y[l] + 1;
-//							*/
-						}
-					}
-				}
 				
 				printf("%d ", j);
 //						/*
@@ -144,7 +127,26 @@ int main()
 //						/*
 				y[min] = y[0];
 //						*/
-
+				//可能还有残留 n_sum - W - k 
+				for(l = i; k < n_sum - W && l <= n[0]; l++)
+				{
+						while(k < n_sum - W && n[l] > 0)
+						{
+							printf("%d %d ", l, l);
+							n[l]--;
+							k++;
+							w_ed++;
+//							/*
+							y[l] = y[0];
+							y[0] = y[l] + 1;
+//							*/
+						}
+				}
+				printf("%d ", min);
+//						/*
+				y[0] = y[min] + 1;
+//						*/
+				
 				for(j = i; j <= n[0]; j++)
 					while(n[j]--){
 						printf("%d %d ", j, j);
@@ -154,15 +156,10 @@ int main()
 						y[0] = y[j] + 1;
 //						*/
 					}
-					
-				printf("%d ", min);
-//						/*
-				y[0] = y[min] + 1;
-//						*/
 			}
 		}
 	}
 	putchar('\n');
-	printf("y[0] = %d, w_ed = %d, k = %d, n_sum - k = %d\n", y[0], w_ed, k, n_sum - k);
+	printf("y[0] = %d, w_ed = %d, k = %d, n_sum = %d, W = %d\n", y[0], w_ed, k, n_sum, W);
 	return 0;
 }
