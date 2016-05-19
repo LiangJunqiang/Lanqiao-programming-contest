@@ -5,11 +5,9 @@
 int isPrime(int num)
 {
 	int i, myin;
-	myin = (int)pow(num, 0.5) + 1;
+	myin = (int)sqrt(num);
 	if(num < 2)
 		return 0;
-	else if(num == 2)
-		return 1;
 	for(i = 2; i <= myin; i++)
 		if((num % i) == 0)
 			return 0;
